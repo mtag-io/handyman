@@ -4,12 +4,11 @@ import {BASE_HEADERS, LOCAL_URL} from '__common__/config'
 
 /**
  * @param {string} selector
- * @param {any} data
- * @param {object} opts
- * @param {function} opts.setData
- * @param {function} opts.setLoader
- * @param {function} opts.setError
- * @return {Promise<Response>}
+ * @param {any?} data
+ * @param {object?} opts
+ * @param {function?} opts.setData
+ * @param {function?} opts.setLoader
+ * @param {function?} opts.setError
  */
 const http = (selector, data, opts = {}) => {
     const _tmp = {

@@ -7,6 +7,7 @@
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/public" />
             <path value="file://$PROJECT_DIR$/packages/nextjs/public" />
+            <path value="file://$PROJECT_DIR$/packages/web/public" />
           </resourceRoots>
         </entryData>
       </entry>

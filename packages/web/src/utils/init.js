@@ -1,6 +1,6 @@
 import {basename, join} from 'path'
 import {existsSync, statSync} from 'fs'
-import {HM_CACHE, PACKAGES} from '../../../../__common__/config.mjs'
+import {HM_CACHE, PACKAGES} from '__common__/config'
 
 
 export const searchUp = pth => {
