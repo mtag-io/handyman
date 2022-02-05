@@ -1,0 +1,17 @@
+{
+  "name": "__common__",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Common",
+  "exports": {
+    "./theme": "./theme.mjs",
+    "./constants": "./constants.mjs",
+    "./config": "./config.mjs",
+    ".": "./utils/index.mjs"
+  },
+  "author": "Vlad Blindu",
+  "license": "MIT",
+  "dependencies": {
+    "@mui/material": "^5.4.0"
+  }
+}
