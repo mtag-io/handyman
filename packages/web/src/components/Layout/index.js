@@ -94,7 +94,7 @@ const Layout = ({children}) => {
                 <Grid item xs={3}>
                     <Sidebar/>
                 </Grid>
-                <Grid item xs={9} sx={{display: 'flex'}}>
+                <Grid item xs={9} sx={{display: 'flex', mt: 3}}>
                     {children}
                 </Grid>
             </Grid>

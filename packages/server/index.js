@@ -20,7 +20,7 @@ app.get('/shutdown', () => {
     kill(CLIENT_PORT,'tcp' )
     setTimeout(() => {
         process.exit(0)
-    }, 500)
+    }, 1000)
 })
 
 const bootstrap = () => {
