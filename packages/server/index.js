@@ -18,7 +18,9 @@ app.use('/project', projectRoutes(router))
 app.get('/shutdown', () => {
     console.log("Shutting down the Handyman server...")
     kill(CLIENT_PORT,'tcp' )
-    process.exit(0)
+    setTimeout(() => {
+        process.exit(0)
+    }, 500)
 })
 
 const bootstrap = () => {

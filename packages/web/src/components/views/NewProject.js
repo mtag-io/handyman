@@ -34,7 +34,7 @@ const NewProject = ({init, name}) => {
     }
 
     const closeApp = () => {
-        http('create.control', {code: 0})
+        http('shutdown', {code: 0})
     }
 
     return <Box ml={2}>
