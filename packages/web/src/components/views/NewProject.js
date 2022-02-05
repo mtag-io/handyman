@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import http from '../../utils/http'
-import {CircularProgress} from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 const NewProject = ({init, name}) => {
     const [project, setProject] = useRecoilState(projectAtom)
@@ -38,20 +38,8 @@ const NewProject = ({init, name}) => {
     }
 
     return <Box ml={2}>
-        <Box sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mr: 4
-        }}>
-            <Box>
-                <Typography variant="h5">New Project</Typography>
-                <Typography variant="body2">Initialize a new Handyman project </Typography>
-            </Box>
-            <Box>
-                {loader && <CircularProgress/>}
-            </Box>
-        </Box>
+        <Typography variant="h5">New Project</Typography>
+        <Typography variant="body2">Initialize a new Handyman project </Typography>
         <Box m={4} ml={0}>
             <Stack spacing={2}>
                 <FormControl>
@@ -76,9 +64,17 @@ const NewProject = ({init, name}) => {
                                label="Project version"
                                onChange={updateProject('version')}/>
                 </FormControl>
-                <Box>
-                    <Button color="primary" onClick={createProject}>Create</Button>
-                    <Button color="primary" onClick={closeApp}>Cancel</Button>
+                <Box sx={{display: 'flex', gap: 2}}>
+                    <LoadingButton
+                        onClick={createProject}
+                        loading={loader}
+                        variant="outlined"
+                        color="primary"
+                        disabled={loader}>Create</LoadingButton>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={closeApp}>Cancel</Button>
                 </Box>
             </Stack>
         </Box>
