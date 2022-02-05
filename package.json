@@ -1,0 +1,9 @@
+{
+  "name": "handyman",
+  "version": "0.0.1",
+  "description": "Source project management utility",
+  "main": "index.js",
+  "repository": "https://github.com/vladblindu/handyman.git",
+  "author": "Vlad Blindu <vlad.blindu@m-tag.io>",
+  "license": "MIT"
+}
