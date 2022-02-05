@@ -2,13 +2,17 @@ import dotenv from 'dotenv'
 import express from'express'
 import cors from'cors'
 import kill from 'kill-port'
-import {CLIENT_PORT} from '__common__/config'
+import {CLIENT_PORT, SERVER_PORT} from '__common__/config'
+import projectRoutes from './project.route.mjs'
 
 dotenv.config()
 const app = express()
-app.use(cors({origin: '*'}))
 
-const PORT = process.env.BACK_PORT
+app.use(cors({origin: '*'}))
+app.use(express.json())
+
+const router = express.Router()
+app.use('/project', projectRoutes(router))
 
 // shutdown Handyman
 app.get('/shutdown', () => {
@@ -18,8 +22,8 @@ app.get('/shutdown', () => {
 })
 
 const bootstrap = () => {
-    app.listen(PORT, () => {
-        console.log(`Handyman server listening on ${PORT}`)
+    app.listen(SERVER_PORT, () => {
+        console.log(`Handyman server listening on ${SERVER_PORT}`)
     })
 }
 

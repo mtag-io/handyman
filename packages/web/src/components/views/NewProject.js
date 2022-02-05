@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRecoilState} from 'recoil'
 import {projectAtom} from '../../atoms/project-atom'
 import TextField from '@mui/material/TextField'
@@ -8,9 +8,11 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import http from '../../utils/http'
+import {CircularProgress} from '@mui/material'
 
 const NewProject = ({init, name}) => {
     const [project, setProject] = useRecoilState(projectAtom)
+    const [loader, setLoader] = useState(false)
 
     useEffect(() => {
         setProject({
@@ -26,7 +28,9 @@ const NewProject = ({init, name}) => {
     }
 
     const createProject = () => {
-        http('create.project', project)
+        http('create.project', project, {
+            setLoader
+        })
     }
 
     const closeApp = () => {
@@ -34,11 +38,22 @@ const NewProject = ({init, name}) => {
     }
 
     return <Box ml={2}>
-        <Typography variant="h5">New Project</Typography>
-        <Typography variant="body2">Initialize a new Handyman project </Typography>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mr: 4
+        }}>
+            <Box>
+                <Typography variant="h5">New Project</Typography>
+                <Typography variant="body2">Initialize a new Handyman project </Typography>
+            </Box>
+            <Box>
+                {loader && <CircularProgress/>}
+            </Box>
+        </Box>
         <Box m={4} ml={0}>
             <Stack spacing={2}>
-
                 <FormControl>
                     <TextField id="name"
                                value={project.name}

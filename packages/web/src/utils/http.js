@@ -41,16 +41,20 @@ const http = (selector, data, opts = {}) => {
             _tmp.body = JSON.stringify(data)
         else url += encode(data)
 
+    if (opts.setLoader) opts.setLoader(true)
     fetch(url, _tmp)
         .then(res => {
             if (res.ok) return res.json()
             else if (opts.setError) setError(res)
+            if (opts.setLoader) opts.setLoader(false)
         })
         .then(data => {
             if (opts.setData) setData(data)
+            if (opts.setLoader) opts.setLoader(false)
         })
         .catch(err => {
             if (opts.setError) setError(err)
+            if (opts.setLoader) opts.setLoader(false)
         })
 }
 

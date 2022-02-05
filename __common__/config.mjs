@@ -7,3 +7,5 @@ export const BASE_HEADERS = {
 }
 export const PACKAGES = 'packages'
 export const LOCAL_URL = `http://localhost:${SERVER_PORT}`
+export const DEFAULT_DESCRIPTION = 'No description'
+export const DEFAULT_VERSION = '0.0.1'
