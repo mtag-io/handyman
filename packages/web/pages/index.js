@@ -1,12 +1,8 @@
 import * as React from 'react'
-import {Container} from '@mui/material'
-import {searchUp} from '../src/utils/init'
-import NewProject from '../src/components/views/NewProject'
+import {searchUp} from '../src/utils/fs-utils'
+import EditProject from '../src/components/views/project/EditProject'
 
-const Home = (props) =>
-    <Container>
-        {props.init && <NewProject {...props}/>}
-    </Container>
+const Home = props => <EditProject {...props}/>
 
 export default Home
 

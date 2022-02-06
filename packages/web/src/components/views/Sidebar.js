@@ -18,10 +18,6 @@ const modules = [
         path: '/resources'
     },
     {
-        name: 'Version',
-        path: '/version'
-    },
-    {
         name: 'Git packages',
         path: '/packages'
     }

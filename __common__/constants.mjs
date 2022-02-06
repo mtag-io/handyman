@@ -11,4 +11,6 @@ export const POST = 'POST'
 export const GET = 'GET'
 export const PUT = 'PUT'
 export const DELETE = 'DELETE'
-
+export const MAJOR = 0
+export const MINOR = 1
+export const PATCH = 2

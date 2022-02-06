@@ -1,2 +1,5 @@
-export const notEmpty = o => o && Object.keys(o).length
-export const empty = o => !notEmpty(o)
+import * as obj from './object.mjs'
+export {default as Version} from './version.class.js'
+
+export const empty = obj.empty
+export const notEmpty = obj.notEmpty

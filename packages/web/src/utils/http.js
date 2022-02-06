@@ -45,16 +45,23 @@ const http = (selector, data, opts = {}) => {
     fetch(url, _tmp)
         .then(res => {
             if (res.ok) return res.json()
-            else if (opts.setError) setError(res)
+            else if (opts.setError) opts.setError({
+                message: `Http status error: ${res.statusText}`,
+                code: res.status
+            })
             if (opts.setLoader) opts.setLoader(false)
         })
         .then(data => {
-            if (opts.setData) setData(data)
+            if (opts.setData) opts.setData(data)
             if (opts.setLoader) opts.setLoader(false)
         })
         .catch(err => {
-            if (opts.setError) setError(err)
+            if (opts.setError) opts.setError({
+                message: err.message,
+                status: err.code
+            })
             if (opts.setLoader) opts.setLoader(false)
+            console.dir(err)
         })
 }
 

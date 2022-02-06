@@ -6,9 +6,11 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Grid from '@mui/material/Grid'
+import Container from '@mui/material/Container'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import {Logo} from '../Brandng'
 import Sidebar from '../views/Sidebar'
-import {Menu, MenuItem} from '@mui/material'
 import {useRouter} from 'next/router'
 import http from '../../utils/http'
 
@@ -95,7 +97,9 @@ const Layout = ({children}) => {
                     <Sidebar/>
                 </Grid>
                 <Grid item xs={9} sx={{display: 'flex', mt: 3}}>
-                    {children}
+                    <Container>
+                        {children}
+                    </Container>
                 </Grid>
             </Grid>
         </Box>
