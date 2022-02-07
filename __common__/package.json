@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "description": "Common",
   "exports": {
+    "./modules/server": "./modules/server.mjs",
+    "./modules/client": "./modules/client.mjs",
     "./theme": "./theme.mjs",
     "./constants": "./constants.mjs",
     "./config": "./config.mjs",

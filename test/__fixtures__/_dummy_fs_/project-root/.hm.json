@@ -1,1 +1,6 @@
-{"name":"test-project","path":"/Users/vlad/Documents/zecode/@lib/handyman/test/__fixtures__/_dummy_fs_/project-root","description":"Test description","version":"5.0.0"}
+{
+    "name": "test-project",
+    "path": "/Users/vlad/Documents/zecode/@lib/handyman/test/__fixtures__/_dummy_fs_/project-root",
+    "description": "Test description",
+    "version": "5.0.0"
+}

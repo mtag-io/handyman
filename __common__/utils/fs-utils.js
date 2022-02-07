@@ -1,6 +1,6 @@
-import {basename, join} from 'path'
-import {existsSync, readFileSync, statSync} from 'fs'
-import {DEFAULT_DESCRIPTION, DEFAULT_VERSION, HM_CACHE, PACKAGES} from '__common__/config.mjs'
+import {join} from 'path'
+import {existsSync, statSync} from 'fs'
+import { HM_CACHE, PACKAGES} from '__common__/config'
 
 /**
  * @param {string} pth
