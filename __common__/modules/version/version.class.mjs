@@ -1,4 +1,4 @@
-import {SEMVER_REGEXP} from '../config.mjs'
+import {SEMVER_REGEXP} from '../../config.mjs'
 
 const DOT = '.'
 

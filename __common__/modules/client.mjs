@@ -1,0 +1,1 @@
+export {default as Version} from './version/version.class.mjs'

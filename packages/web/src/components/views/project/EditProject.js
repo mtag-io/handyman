@@ -12,7 +12,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import http from '../../../utils/http'
 import {schema} from './schema'
-import {Version} from '__common__'
+import {Version} from '__common__/modules/client'
 import {MAJOR, MINOR, PATCH} from '__common__/constants'
 
 const EditProject = ({newProject, ...project}) => {
@@ -54,7 +54,6 @@ const EditProject = ({newProject, ...project}) => {
                     <Typography variant="body2">The path of the project is readonly </Typography>
                 </Box>
         }
-
         <Box m={4} ml={0}>
             <Stack spacing={2}>
                 <Box mb={2}>

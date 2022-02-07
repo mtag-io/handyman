@@ -1,9 +1,3 @@
-export const PROJECT_DATA_KEYS = [
-    'name',
-    'description',
-    'version'
-]
-
 export const PKG = 'package.json'
 export const MULTI_PACK = 1
 export const MONO_REPO = 2
@@ -14,3 +8,5 @@ export const DELETE = 'DELETE'
 export const MAJOR = 0
 export const MINOR = 1
 export const PATCH = 2
+export const UTF8 = 'utf-8'
+export const DOT = '.'
