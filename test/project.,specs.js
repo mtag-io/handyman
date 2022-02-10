@@ -27,9 +27,10 @@ describe('project', () => {
 
         expect(project.data).to.deep.equal({
             name: "test-project",
-            path: resolve('.//test/__fixtures__/_dummy_fs_/project-root/'),
+            path: resolve('./test/__fixtures__/_dummy_fs_/project-root/'),
             description: 'Test description',
-            version: '5.0.0'
+            version: '5.0.0',
+            hasRootPkg: true
         })
     })
 })

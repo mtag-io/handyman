@@ -3,7 +3,7 @@ import express from'express'
 import cors from'cors'
 import kill from 'kill-port'
 import {CLIENT_PORT, SERVER_PORT} from '__common__/config'
-import {projectRoutes} from '__common__/modules/server'
+import {Project} from '__common__/modules/server'
 
 dotenv.config()
 const app = express()
@@ -11,8 +11,9 @@ const app = express()
 app.use(cors({origin: '*'}))
 app.use(express.json())
 
+const project = new Project()
 const router = express.Router()
-app.use('/project', projectRoutes(router))
+app.use('/project', project.routes(router))
 
 // shutdown Handyman
 app.get('/shutdown', () => {
