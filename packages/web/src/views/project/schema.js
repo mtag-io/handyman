@@ -2,6 +2,9 @@ import * as yup from 'yup'
 import {SEMVER_REGEXP} from '__common__/config'
 
 export const schema = yup.object({
+    newProject: yup.boolean(),
+    syncRootPkg: yup.boolean(),
+    syncSubPkg: yup.boolean(),
     name: yup
         .string('Project name')
         .matches(/^[a-z_]+$/, 'Only lower case and underscore alowed (npm))')
@@ -12,5 +15,5 @@ export const schema = yup.object({
     version: yup
         .string('Project version')
         .matches(SEMVER_REGEXP, 'Semver format required')
-        .required('A minimal description is required'),
+        .required('A minimal description is required')
 })

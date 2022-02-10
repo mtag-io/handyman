@@ -10,3 +10,4 @@ export const MINOR = 1
 export const PATCH = 2
 export const UTF8 = 'utf-8'
 export const DOT = '.'
+export const JSON_EXT = '.json'
