@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Project} from '__common__/modules/server'
+import {Project} from 'common/modules/server'
 import propTypes from 'prop-types'
 import {useRecoilState} from 'recoil'
 import Backdrop from '@mui/material/Backdrop'
@@ -16,7 +16,6 @@ const Home = (props) => {
         setProject(project)
         if (newProject)
             router.push('/new-project').then()
-
         else
             router.push('/project-info').then()
     }, [])

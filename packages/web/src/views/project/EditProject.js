@@ -2,22 +2,22 @@ import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 import {useRecoilState} from 'recoil'
 import {useFormik} from 'formik'
-import {projectAtom} from '../../atoms/project-atom'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 import Button from '@mui/material/Button'
-import {schema} from './schema'
-import {Version} from '__common__/modules/client'
-import {MAJOR, MINOR, PATCH} from '__common__/constants'
 import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
 import AddCircle from '@mui/icons-material/AddCircle'
+import {projectAtom} from '../../atoms/project-atom'
+import {Version} from 'common/modules/client'
 import http from '../../utils/http'
-import {omit, notEmpty} from '__common__/helpers'
+import {notEmpty, omit} from 'common/helpers'
+import {schema} from './schema'
+import {MAJOR, MINOR, PATCH} from 'common/constants'
 
 const EditProject = ({newProject}) => {
     const [project, setProject] = useRecoilState(projectAtom)
@@ -40,14 +40,16 @@ const EditProject = ({newProject}) => {
         onSubmit: (values) => {
             const payload = {
                 ...values,
-                hasRootPkg: project.hasRootPkg,
+                hasRootPkg: project.hasRootPkg
             }
             http(
                 'create.project',
                 payload,
                 {setLoader, setError})
             setProject(payload)
-            router.push('/project-info').then()
+            setTimeout(() => {
+                router.push('/project-info').then()
+            }, 200)
         }
     })
 
@@ -58,7 +60,7 @@ const EditProject = ({newProject}) => {
     }
 
     useEffect(() => {
-        if(!valid) router.push('/').then()
+        if (!valid) router.push('/').then()
     })
 
     return valid ? <Box>

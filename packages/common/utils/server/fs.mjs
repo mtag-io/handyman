@@ -54,7 +54,7 @@ export const readJson = (pth) => {
 export const writeJson = (pth, data) => {
     if (!pth.endsWith(JSON_EXT)) pth += JSON_EXT
     try {
-        writeFileSync(pth, JSON.stringify(data))
+        writeFileSync(pth, JSON.stringify(data, null, 2))
     } catch (err) {
         throw {
             message: `Couldn't write json file in ${pth}.`,

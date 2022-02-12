@@ -5,15 +5,15 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import EditIcon from '@mui/icons-material/Edit'
 import Inventory2Icon from '@mui/icons-material/Inventory2'
-import {projectAtom} from '../../atoms/project-atom'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
-import {DEFAULT_DESCRIPTION} from '__common__/config'
 import Button from '@mui/material/Button'
-import {notEmpty} from '__common__/helpers'
+import {projectAtom} from '../../atoms/project-atom'
+import {DEFAULT_DESCRIPTION} from 'common/config'
+import {notEmpty} from 'common/helpers'
 
 const ProjectInfo = () => {
     /** @type {Project} project **/
