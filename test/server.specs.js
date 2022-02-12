@@ -3,8 +3,8 @@ import {existsSync, readFileSync, unlinkSync} from 'fs'
 import {expect} from 'chai'
 import fetch from 'node-fetch'
 import {DUMMY_FS_ROOT, FIXTURES} from './__fixtures__/test-const.mjs'
-import {BASE_HEADERS, HM_CACHE, LOCAL_URL} from '__common__/config'
-import {POST} from '__common__/constants'
+import {BASE_HEADERS, HM_CACHE, LOCAL_URL} from 'common/config'
+import {POST} from 'common/constants'
 
 const dir = dirname(import.meta.url.replace('file://', ''))
 

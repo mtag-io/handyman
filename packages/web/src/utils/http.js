@@ -1,6 +1,6 @@
 import {encode} from 'querystring'
-import {DELETE, GET, POST, PUT} from '__common__/constants'
-import {BASE_HEADERS, LOCAL_URL} from '__common__/config'
+import {DELETE, GET, POST, PUT} from 'common/constants'
+import {BASE_HEADERS, LOCAL_URL} from 'common/config'
 
 /**
  * @param {string} selector

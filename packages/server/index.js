@@ -2,8 +2,8 @@ import dotenv from 'dotenv'
 import express from'express'
 import cors from'cors'
 import kill from 'kill-port'
-import {CLIENT_PORT, SERVER_PORT} from '__common__/config'
-import {Project} from '__common__/modules/server'
+import {CLIENT_PORT, SERVER_PORT} from 'common/config'
+import {Project} from 'common/modules/server'
 
 dotenv.config()
 const app = express()

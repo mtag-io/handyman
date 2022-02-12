@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import ErrorIcon from '@mui/icons-material/Error'
 import React from 'react'
-import {ERROR_CONTENT} from '__common__/config'
+import {ERROR_CONTENT} from 'common/config'
 
 const Error = () => {
     const router = useRouter()

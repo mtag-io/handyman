@@ -1,7 +1,7 @@
 import {resolve} from 'path'
 import {expect} from 'chai'
-import {Project} from '__common__/modules/server'
-import {DEFAULT_DESCRIPTION, DEFAULT_VERSION} from '__common__/config'
+import {Project} from 'common/modules/server'
+import {DEFAULT_DESCRIPTION, DEFAULT_VERSION} from 'common/config'
 
 describe('project', () => {
 

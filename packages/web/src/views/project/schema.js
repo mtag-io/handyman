@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import {SEMVER_REGEXP} from '__common__/config'
+import {SEMVER_REGEXP} from 'common/config'
 
 export const schema = yup.object({
     newProject: yup.boolean(),
