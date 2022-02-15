@@ -41,7 +41,7 @@ Home.propTypes = {
 export default Home
 
 export const getStaticProps = () => {
-    const project = new Project(process.cwd())
-    return {props: project.data}
+    const project = new Project({root: process.cwd()})
+    return {props: project.flush()}
 }
 

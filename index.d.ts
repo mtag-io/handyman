@@ -1,10 +1,25 @@
-interface Project{
+interface BasePackageData{
     name: string
     path: string
     description: string
     version: string
-    hasRootPkg: boolean,
-    syncRootPkg: boolean
+}
+
+interface Package extends BasePackageData{
+    isClient?: boolean,
+    isServer?: boolean,
+    isroot?: boolean
+}
+
+interface Project extends BasePackageData{
     syncSubPkg: boolean,
-    packages: object[]
+    packages: Package[]
+}
+
+interface ProjectOpts{
+    root?: string,
+    hmConf?: object
+    orgName?:string,
+    environment?: object
+    github?:object
 }

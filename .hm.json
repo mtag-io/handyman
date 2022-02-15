@@ -1,1 +1,29 @@
-{"syncRootPkg":true,"syncSubPkg":true,"name":"handyman","description":"Source project management utility ","version":"1.0.1","path":"/Users/vlad/Documents/zecode/@lib/handyman","packages":[{"path":"/Users/vlad/Documents/zecode/@lib/handyman/__common__/package.json","name":"__common__","version":"1.0.1","description":"M-Tag Source project management utility "},{"path":"/Users/vlad/Documents/zecode/@lib/handyman/packages/server/package.json","name":"server","version":"1.0.1","description":"M-Tag Source project management utility "},{"path":"/Users/vlad/Documents/zecode/@lib/handyman/packages/web/package.json","name":"web","version":"1.0.1","description":"M-Tag Source project management utility "}],"hasRootPkg":true}
+{
+  "syncRootPkg": false,
+  "syncSubPkg": false,
+  "name": "handyman",
+  "description": "Source project management utility ",
+  "version": "1.0.1",
+  "path": "/Users/vlad/Documents/zecode/@lib/handyman",
+  "packages": [
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman/packages/common/package.json",
+      "name": "common",
+      "version": "1.0.1",
+      "description": "Source project management utility "
+    },
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman/packages/server/package.json",
+      "name": "server",
+      "version": "1.0.1",
+      "description": "Source project management utility "
+    },
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman/packages/web/package.json",
+      "name": "web",
+      "version": "1.0.1",
+      "description": "Source project management utility "
+    }
+  ],
+  "hasRootPkg": true
+}

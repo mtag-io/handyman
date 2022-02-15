@@ -15,7 +15,7 @@ import AddCircle from '@mui/icons-material/AddCircle'
 import {projectAtom} from '../../atoms/project-atom'
 import {Version} from 'common/modules/client'
 import http from '../../utils/http'
-import {notEmpty, omit} from 'common/helpers'
+import {notEmpty, omit} from 'common/global'
 import {schema} from './schema'
 import {MAJOR, MINOR, PATCH} from 'common/constants'
 
@@ -34,6 +34,7 @@ const EditProject = ({newProject}) => {
         router.push('/project-info').then()
     }
 
+    /** @type {*} formik */
     const formik = useFormik({
         initialValues: omit(project, 'newProject', 'hasRootPkg'),
         validationSchema: schema,

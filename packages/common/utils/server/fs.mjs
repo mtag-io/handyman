@@ -1,8 +1,28 @@
-import {basename, extname, join} from 'path'
+import {basename, dirname, extname, join, sep} from 'path'
 import {existsSync, readFileSync, statSync, symlinkSync, unlinkSync, writeFileSync} from 'fs'
-import {DEFAULT_DESCRIPTION, DEFAULT_VERSION, HM_CACHE, PACKAGES} from '../../config.mjs'
+import {fileURLToPath} from 'url'
+import {
+    DEFAULT_CLIENT_MATCHES,
+    DEFAULT_DESCRIPTION,
+    DEFAULT_SERVER_MATCHES,
+    DEFAULT_VERSION,
+    HM_CONFIG,
+    PACKAGES
+} from '../../config.mjs'
 import {JSON_EXT, PKG} from '../../constants.mjs'
 import glob from 'fast-glob'
+import {includeSubStrings} from 'common/global'
+
+export const __dirname = url => {
+    return dirname(fileURLToPath(url))
+}
+
+/**
+ * @desc removes exptra sep to end of path
+ * @param {string} pth
+ * @return {string}
+ */
+export const cleanPath = pth => pth[pth.length - 1] === sep ? pth.slice(0, pth.length - 1) : pth
 
 /**
  * @param {string} pth
@@ -11,12 +31,12 @@ import glob from 'fast-glob'
 export const searchUp = pth => {
     let tmp = pth
     while (tmp !== '/') {
-        const hmPath = join(tmp, HM_CACHE)
+        const hmPath = join(tmp, HM_CONFIG)
         const packPath = join(tmp, PACKAGES)
         if (existsSync(hmPath))
-            return hmPath
+            return tmp
         if (existsSync(packPath) && statSync(packPath).isDirectory())
-            return packPath
+            return tmp
         tmp = join(tmp, '../')
     }
     return ''
@@ -119,29 +139,50 @@ export const updatePackage = (root, pkgUpdate) => {
 }
 
 /**
- * @description create a record of all subsequent packages in a project
+ * @description create a record of all subsequent package.json
+ * defined packages in a project
  * @param {string} root
  * @return {object}
  */
 export const extractPackages = root => {
     const pkgPaths = glob.sync(
-        [
-            '**/package.json',
-            '!**/test/**/*',
-            '!**/node_modules/**/*',
-            '!./package.json'
-        ],
+        ['**/package.json', '!**/test', '!**/node_modules'],
         {
             cwd: root,
             absolute: true
         })
     return pkgPaths.map(pkgPath => {
+
         const pkg = readJson(pkgPath)
-        return {
+
+        const _tmp = {
             path: pkgPath,
             name: pkg.name,
             version: pkg.version || DEFAULT_VERSION,
             description: pkg.description || DEFAULT_DESCRIPTION
         }
+        if (pkgPath === root)
+            _tmp.isRoot = true
+        if (includeSubStrings(pkg.name, DEFAULT_CLIENT_MATCHES))
+            _tmp.isClient = true
+        if (includeSubStrings(pkg.name, DEFAULT_SERVER_MATCHES))
+            _tmp.isServer = true
+        return _tmp
+    })
+}
+
+export const checkRootPackage = root => {
+    try {
+        return !!readPackage(root)
+    } catch (err) {
+        return false
+    }
+}
+
+export const initRootPackage = root => {
+    writePackage(root, {
+        name: basename(root),
+        description: DEFAULT_DESCRIPTION,
+        version: DEFAULT_VERSION
     })
 }

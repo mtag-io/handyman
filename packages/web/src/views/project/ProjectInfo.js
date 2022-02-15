@@ -4,16 +4,15 @@ import {useRecoilValue} from 'recoil'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import EditIcon from '@mui/icons-material/Edit'
-import Inventory2Icon from '@mui/icons-material/Inventory2'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import {projectAtom} from '../../atoms/project-atom'
 import {DEFAULT_DESCRIPTION} from 'common/config'
-import {notEmpty} from 'common/helpers'
+import {notEmpty} from 'common/global'
+import MainInfo from '../../components/MainInfo'
 
 const ProjectInfo = () => {
     /** @type {Project} project **/
@@ -28,6 +27,11 @@ const ProjectInfo = () => {
     const goToEdit = () => {
         router.push('/edit-project').then()
     }
+
+    const goToPackage = (id) => () => {
+        router.push(`/package-info/${id}`).then()
+    }
+
     return valid
         ? <Box>
             <Box sx={{mb: 2}}>
@@ -36,35 +40,23 @@ const ProjectInfo = () => {
                     properties </Typography>
             </Box>
 
-            <Box className="flex">
-                <Typography variant="body1"><b>Project name:</b></Typography>
-                <Typography variant="body2" color="primary">&nbsp;{project.name}</Typography>
-            </Box>
-            <Box className="flex">
-                <Typography variant="body1"><b>Project path:</b></Typography>
-                <Typography variant="body2" color="primary">&nbsp;{project.path}</Typography>
-            </Box>
-            <Box className="flex">
-                <Typography variant="body1"><b>Project description:</b></Typography>
-                <Typography variant="body2" color="primary">&nbsp;{project.description}</Typography>
-            </Box>
-            <Box className="flex">
-                <Typography variant="body1"><b>Project version:</b></Typography>
-                <Typography variant="body2" color="primary">&nbsp;{project.version}</Typography>
-            </Box>
-            <Typography variant="body1" sx={{mt: 1}}><b>Packages:</b></Typography>
-            <List dense sx={{maxWidth: '50%'}}>
+            <MainInfo project={project}/>
+            <Typography variant="body1" sx={{mt: 1}}><b>Module packages:</b></Typography>
+            <List dense sx={{maxWidth: '40%', ml: 2}}>
                 {
-                    project.packages.map(pkg => <ListItem
+                    project.packages.map((pkg, idx) =>
+                        <ListItem
+                            sx={{pl: 2}}
                             key={pkg['name']}
+                            button
                             secondaryAction={
-                                <IconButton edge="end" aria-label="edit">
+                                <IconButton
+                                    onClick={goToPackage(idx)}
+                                    edge="end"
+                                    aria-label="edit">
                                     <EditIcon color="primary"/>
                                 </IconButton>
                             } disablePadding>
-                            <ListItemIcon>
-                                <Inventory2Icon/>
-                            </ListItemIcon>
                             <ListItemText
                                 primary={pkg['name']}
                                 secondary={pkg['description'] || DEFAULT_DESCRIPTION}/>
@@ -74,7 +66,7 @@ const ProjectInfo = () => {
             </List>
             <Box className="flex" sx={{mt: 2}}>
                 <Typography variant="body1"><b>Has root package.json:</b></Typography>
-                <Typography variant="body2">&nbsp; {project.hasRootPkg ? 'Yes' : 'No'}</Typography>
+                <Typography variant="body2" color="primary">&nbsp; {project.hasRootPkg ? 'Yes' : 'No'}</Typography>
             </Box>
             <Button
                 sx={{mt: 2}}

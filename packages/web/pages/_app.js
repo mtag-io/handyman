@@ -7,7 +7,7 @@ import {CacheProvider} from '@emotion/react'
 import theme from '../src/theme'
 import createEmotionCache from '../src/utils/createEmotionCache'
 import {RecoilRoot} from 'recoil'
-import Layout from '../src/components/Layout'
+import Layout from '../src/views/layout/Layout'
 import '../styles/global.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.

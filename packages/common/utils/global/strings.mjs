@@ -1,0 +1,1 @@
+export const includeSubStrings = (st, subStrings) => subStrings.some(s => st.includes(s))
