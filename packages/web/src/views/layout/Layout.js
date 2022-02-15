@@ -9,10 +9,10 @@ import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import {Logo} from './Brandng'
-import Sidebar from '../views/Sidebar'
+import {Logo} from '../../components/Brandng'
+import Sidebar from './Sidebar'
 import {useRouter} from 'next/router'
-import http from '../utils/http'
+import http from '../../utils/http'
 
 const Layout = ({children}) => {
     const [anchorEl, setAnchorEl] = React.useState(null)

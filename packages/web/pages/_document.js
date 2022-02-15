@@ -29,6 +29,7 @@ export default class MyDocument extends Document {
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with public-site generation (SSG).
+// noinspection JSValidateTypes
 MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //

@@ -9,13 +9,15 @@
     "./theme": "./theme.mjs",
     "./constants": "./constants.mjs",
     "./config": "./config.mjs",
-    "./helpers": "./utils/global/index.mjs",
-    "./server": "./utils/server"
+    "./global": "./utils/global/index.mjs",
+    "./server": "./utils/server/index.mjs"
   },
   "author": "Vlad Blindu",
   "license": "MIT",
   "dependencies": {
     "@mui/material": "^5.4.0",
-    "fast-glob": "^3.2.11"
+    "fast-glob": "^3.2.11",
+    "github-api": "^3.4.0",
+    "simple-encryptor": "^4.0.0"
   }
 }
