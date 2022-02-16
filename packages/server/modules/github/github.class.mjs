@@ -1,7 +1,7 @@
 // noinspection JSUnresolvedFunction
 
 import GitHub from 'github-api'
-import {DEFAULT_GITHUB_ORG} from '../../config.mjs'
+import {DEFAULT_GITHUB_ORG} from 'common/config'
 
 const defaultOpts = {
     orgName: DEFAULT_GITHUB_ORG

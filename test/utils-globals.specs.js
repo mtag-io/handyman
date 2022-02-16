@@ -23,6 +23,7 @@ describe('oop', () => {
         constructor(v1, v2) {
             this.prop1 = v1 || 'whatever'
             this.prop2 = v2 || ['something', 'else']
+            this._private = 'private'
         }
 
         method1() {

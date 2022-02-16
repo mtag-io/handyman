@@ -51,6 +51,17 @@ export const DEFAULT_SERVER_MATCHES = [
     'back'
 ]
 
+export const DEFAULT_HM_CONFIG = {
+    'syncPackage': false
+}
+
 //Keys
 export const ENCRYPTION_KEY = 'crypto-key'
 export const GITHUB_TOKEN_KEY = 'github-token'
+
+// Endpoints
+export const endpoints = {
+    'shutdown': {}
+}
+
+

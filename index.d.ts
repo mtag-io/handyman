@@ -1,25 +1,35 @@
-interface BasePackageData{
+interface BasePackageData {
     name: string
     path: string
     description: string
     version: string
 }
 
-interface Package extends BasePackageData{
+interface Package extends BasePackageData {
     isClient?: boolean,
     isServer?: boolean,
     isroot?: boolean
 }
 
-interface Project extends BasePackageData{
+interface Project extends BasePackageData {
     syncSubPkg: boolean,
     packages: Package[]
 }
 
-interface ProjectOpts{
+interface ProjectOpts {
     root?: string,
     hmConf?: object
-    orgName?:string,
+    orgName?: string,
     environment?: object
-    github?:object
+    github?: object,
+    warnings?: object
 }
+
+interface Endpoint {
+    route?: string
+    path?: string
+    method?: string
+    resolver?: string
+}
+
+type Endpoints = { [key: string]: Endpoint; }

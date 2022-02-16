@@ -1,3 +1,5 @@
+// noinspection ES6PreferShortImport
+
 import {basename, dirname, extname, join, sep} from 'path'
 import {existsSync, readFileSync, statSync, symlinkSync, unlinkSync, writeFileSync} from 'fs'
 import {fileURLToPath} from 'url'
@@ -8,8 +10,8 @@ import {
     DEFAULT_VERSION,
     HM_CONFIG,
     PACKAGES
-} from '../../config.mjs'
-import {JSON_EXT, PKG} from '../../constants.mjs'
+} from '../config/index.mjs'
+import {JSON_EXT, PKG} from '../constants/index.mjs'
 import glob from 'fast-glob'
 import {includeSubStrings} from 'common/global'
 
@@ -25,21 +27,26 @@ export const __dirname = url => {
 export const cleanPath = pth => pth[pth.length - 1] === sep ? pth.slice(0, pth.length - 1) : pth
 
 /**
- * @param {string} pth
- * @return {string}
+ * @param {string?} pth
+ * @return {{root: string, isNew: boolean?} | null}
  */
 export const searchUp = pth => {
-    let tmp = pth
+    let tmp = pth || process.cwd()
     while (tmp !== '/') {
         const hmPath = join(tmp, HM_CONFIG)
         const packPath = join(tmp, PACKAGES)
         if (existsSync(hmPath))
-            return tmp
+            return {
+                root: cleanPath(tmp)
+            }
         if (existsSync(packPath) && statSync(packPath).isDirectory())
-            return tmp
+            return {
+                root: cleanPath(tmp),
+                isNew: true
+            }
         tmp = join(tmp, '../')
     }
-    return ''
+    return null
 }
 
 /**
@@ -156,12 +163,12 @@ export const extractPackages = root => {
         const pkg = readJson(pkgPath)
 
         const _tmp = {
-            path: pkgPath,
+            path: dirname(pkgPath),
             name: pkg.name,
             version: pkg.version || DEFAULT_VERSION,
             description: pkg.description || DEFAULT_DESCRIPTION
         }
-        if (pkgPath === root)
+        if (dirname(pkgPath) === root)
             _tmp.isRoot = true
         if (includeSubStrings(pkg.name, DEFAULT_CLIENT_MATCHES))
             _tmp.isClient = true
@@ -185,4 +192,14 @@ export const initRootPackage = root => {
         description: DEFAULT_DESCRIPTION,
         version: DEFAULT_VERSION
     })
+}
+
+export const readHMConf = root => {
+    if (basename(root) !== HM_CONFIG) root = join(root, HM_CONFIG)
+    return readJson(root)
+}
+
+export const writeHMConf = (root, conf) => {
+    if (basename(root) !== HM_CONFIG) root = join(root, HM_CONFIG)
+    return writeJson(root, conf)
 }
