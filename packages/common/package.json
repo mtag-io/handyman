@@ -4,20 +4,18 @@
   "version": "1.0.1",
   "description": "Source project management utility ",
   "exports": {
-    "./modules/server": "./modules/server.mjs",
-    "./modules/client": "./modules/client.mjs",
-    "./theme": "./theme.mjs",
-    "./constants": "./constants.mjs",
-    "./config": "./config.mjs",
-    "./global": "./utils/global/index.mjs",
-    "./server": "./utils/server/index.mjs"
+    "./client": "./client/index.mjs",
+    "./theme": "./theme/index.mjs",
+    "./constants": "./constants/index.mjs",
+    "./config": "./config/index.mjs",
+    "./global": "./global/index.mjs",
+    "./server": "./server/index.mjs"
   },
   "author": "Vlad Blindu",
   "license": "MIT",
   "dependencies": {
     "@mui/material": "^5.4.0",
     "fast-glob": "^3.2.11",
-    "github-api": "^3.4.0",
-    "simple-encryptor": "^4.0.0"
+    "kill-port": "^1.6.1"
   }
 }

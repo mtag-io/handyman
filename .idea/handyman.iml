@@ -8,8 +8,10 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules/common/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/packages/web/node_modules/common/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/node_modules/common/node_modules" />
     </content>
     <content url="file://$MODULE_DIR$/node_modules/common" />
+    <content url="file://$MODULE_DIR$/packages/server/node_modules/common" />
     <content url="file://$MODULE_DIR$/packages/web/node_modules/common" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

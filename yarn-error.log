@@ -17,12 +17,12 @@ Trace:
   Error: https://registry.yarnpkg.com/__common__: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66988:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140662:22)
-      at Request.emit (events.js:376:20)
+      at Request.emit (warningEvents.mjs:376:20)
       at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141634:10)
-      at Request.emit (events.js:376:20)
+      at Request.emit (warningEvents.mjs:376:20)
       at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141556:12)
-      at Object.onceWrapper (events.js:482:28)
-      at IncomingMessage.emit (events.js:388:22)
+      at Object.onceWrapper (warningEvents.mjs:482:28)
+      at IncomingMessage.emit (warningEvents.mjs:388:22)
       at endReadableNT (internal/streams/readable.js:1336:12)
       at processTicksAndRejections (internal/process/task_queues.js:82:21)
 

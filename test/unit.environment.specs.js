@@ -1,10 +1,15 @@
 import {expect} from 'chai'
-import {Environment} from 'common/modules/server'
+import Environment from '../packages/server/modules/environment/environment.class.mjs'
 import {ENCRYPTION_KEY} from 'common/config'
 
 describe('Environment class', () => {
 
-    const env = new Environment({[ENCRYPTION_KEY]: 'dummy_encription_key'})
+    const env = new Environment({
+        [ENCRYPTION_KEY]: 'dummy_encription_key',
+        warning: {
+            emit: () => {}
+        }
+    })
 
     describe('encryption/decryption', () => {
 

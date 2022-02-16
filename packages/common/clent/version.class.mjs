@@ -1,4 +1,6 @@
-import {SEMVER_REGEXP} from '../../config.mjs'
+// noinspection ES6PreferShortImport
+
+import {SEMVER_REGEXP} from '../config/index.mjs'
 
 const DOT = '.'
 
@@ -9,7 +11,7 @@ class Version {
     constructor(init) {
 
         if (!SEMVER_REGEXP.test(init))
-            throw new Error(`Version shoud comply to semver standard. ${init} does not.`)
+            throw new Error(`Version shoud comply to semver standard (ex: 1.2.15). ${init} does not.`)
         this._digest(init)
         this.incMajor = this.incMajor.bind(this)
         this.incMinor = this.incMinor.bind(this)

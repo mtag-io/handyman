@@ -12,11 +12,13 @@ describe('SERVER - FS RELATED HELPERS', () => {
         it('should cleanup the path ernding with a slash', () => {
             const pathParts = ['..', 'dummy', 'path'].join(sep)
             const testPath = pathParts.concat(sep)
+            // noinspection JSCheckFunctionSignatures
             expect(cleanPath(testPath)).to.equal(pathParts)
         })
 
         it('should leave the path untouched', () => {
             const pathParts = ['..', 'dummy', 'path'].join(sep)
+            // noinspection JSCheckFunctionSignatures
             expect(cleanPath(pathParts)).to.equal(pathParts)
         })
     })
@@ -25,21 +27,18 @@ describe('SERVER - FS RELATED HELPERS', () => {
 
         it('should pass with right path (new project)', () => {
             const testPath = resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/new-project-root/packages/internal-pack1')
-            const actual = cleanPath(searchUp(testPath))
-            expect(actual).to.equal(
+            const {root, isNew} = searchUp(testPath)
+            expect(root).to.equal(
                 resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/new-project-root'))
+            expect(isNew).to.be.true
         })
 
         it('should pass with right path (hm.json)', () => {
             const testPath = resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/project-root/packages/internal-pack1')
-            const actual = cleanPath(searchUp(testPath))
-            expect(actual).to.equal(
+            const {root, isNew} = searchUp(testPath)
+            expect(root).to.equal(
                 resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/project-root'))
-        })
-
-        it('should fail to find a root package', () => {
-            const testPath = resolve(__dirname(import.meta.url), '../../')
-            expect(searchUp(testPath)).to.equal('')
+            expect(isNew).to.be.not.ok
         })
     })
 })
