@@ -1,7 +1,6 @@
 import {endpoints} from 'common/config'
 import {DELETE, DOT, GET, POST, PUT, SEP} from '../constants/index.mjs'
 import {cleanSep, urlAdd} from '../global/strings.mjs'
-import {HOME_ROUTE} from 'common/constants'
 
 export const solveEndpoint = (epSelector, _endpoints = endpoints) => {
     const _tmp = {}

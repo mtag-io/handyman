@@ -1,6 +1,3 @@
-// files and dirs
-import {DELETE} from 'common/constants'
-
 export const HM_CONFIG = '.hm.json'
 export const HM_CACHE = '~/.hm'
 export const PACKAGES = 'packages'
