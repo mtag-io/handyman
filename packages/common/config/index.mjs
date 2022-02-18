@@ -1,4 +1,6 @@
 // files and dirs
+import {DELETE} from 'common/constants'
+
 export const HM_CONFIG = '.hm.json'
 export const HM_CACHE = '~/.hm'
 export const PACKAGES = 'packages'
@@ -60,8 +62,24 @@ export const ENCRYPTION_KEY = 'crypto-key'
 export const GITHUB_TOKEN_KEY = 'github-token'
 
 // Endpoints
+export const SHUTDOWN = 'shutdown'
+export const WARNING = 'warning'
+export const PROJECT = 'project'
+
 export const endpoints = {
-    'shutdown': {}
+    [SHUTDOWN]: {},
+    [WARNING]:{
+        resolvers: {
+            get:{},
+            delete:{
+                param: 'id'
+            }
+        }
+    },
+    [PROJECT]:{
+        get:{},
+        update:{}
+    }
 }
 
 
