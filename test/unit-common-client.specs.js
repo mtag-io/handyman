@@ -1,3 +1,5 @@
+// noinspection ES6PreferShortImport
+
 import {expect} from 'chai'
 import {DELETE} from 'common/constants'
 import {solveEndpoint} from '../packages/common/cilent/endpoints.mjs'

@@ -5,6 +5,7 @@ import GitHub from 'github-api'
 import {extractPackages, warningEvents} from 'common/server'
 import {DEFAULT_HM_CONFIG} from 'common/config'
 import {omit} from 'common/global'
+import {ENVIRONMENT} from 'common/constants'
 
 /**
  * @class Project
@@ -16,23 +17,28 @@ class Project {
      */
     constructor(opts = {}) {
 
-        const warning = opts.warnings || warningEvents
-        this._registerWarnings(warning)
+        const warnings = opts.warnings || warningEvents
+        this._registerWarnings(warnings)
 
         this._packages = {}
-        const {root, isNew} = searchUp()
+        const {root, conf} = searchUp()
         if (!checkRootPackage(root))
             initRootPackage(root)
 
-        if (!isNew) {
+        if (conf) {
+            this._digest({
+                ...DEFAULT_HM_CONFIG,
+                ...conf
+            })
+        } else {
             const packages = extractPackages(root)
             this._digest({
                 ...DEFAULT_HM_CONFIG,
                 packages
             })
         }
-        this.env = opts.environment || new Environment({root, warning})
-        this.gh = opts.github || new GitHub(opts)
+        this._env = opts.environment || new Environment({...opts, root, warnings})
+        this._gh = opts.github || new GitHub({...opts, warnings, enironment: this._env})
 
         this.writeHmConfig = this.writeHmConfig.bind(this)
     }
@@ -89,7 +95,7 @@ class Project {
 
     _registerWarnings(warning) {
         if(!this.warningQueue) this.warningQueue = []
-        warning.on('environment', err => {
+        warning.on(ENVIRONMENT, err => {
             this.warningQueue.push(err)
         })
     }

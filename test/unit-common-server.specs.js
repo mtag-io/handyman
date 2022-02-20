@@ -11,7 +11,7 @@ import {
     spreadEndpoint
 } from 'common/server'
 import {unlinkSync} from 'fs'
-import {PKG, DELETE} from 'common/constants'
+import {DELETE, PKG} from 'common/constants'
 import {DEFAULT_DESCRIPTION, DEFAULT_VERSION} from 'common/config'
 
 describe('SERVER - UNIT TESTS', () => {
@@ -36,18 +36,23 @@ describe('SERVER - UNIT TESTS', () => {
 
         it('should pass with right path (new project)', () => {
             const testPath = resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/new-project-root/packages/internal-pack1')
-            const {root, isNew} = searchUp(testPath)
+            const {root, conf} = searchUp(testPath)
             expect(root).to.equal(
                 resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/new-project-root'))
-            expect(isNew).to.be.true
+            expect(conf).to.be.undefined
         })
 
         it('should pass with right path (hm.json)', () => {
             const testPath = resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/project-root/packages/internal-pack1')
-            const {root, isNew} = searchUp(testPath)
+            const {root, conf} = searchUp(testPath)
             expect(root).to.equal(
                 resolve(__dirname(import.meta.url), './__fixtures__/_dummy_fs_/project-root'))
-            expect(isNew).to.be.not.ok
+            expect(conf).to.deep.equal({
+                "name": "test-project",
+                "path": "/Users/vlad/Documents/zecode/@lib/handyman/test/__fixtures__/_dummy_fs_/project-root",
+                "description": "Test description",
+                "version": "5.0.0"
+            })
         })
     })
 
@@ -144,28 +149,34 @@ describe('SERVER - UNIT TESTS', () => {
 
             expect(spreadEndpoint(testEndpoints)).to.deep.equal([
                 {
-                    route: "/testPath",
-                    method: "GET",
-                    path: "/:id",
-                    resolver: "complexGet"
+                    route: '/testPath',
+                    resolvers: [
+                        {
+                            method: 'GET',
+                            path: '/:id',
+                            resolver: 'complexGet'
+                        },
+                        {
+                            method: 'DELETE',
+                            path: '/posts',
+                            resolver: 'complexNoMatch'
+                        }]
                 },
                 {
-                    route: "/testPath",
-                    method: "DELETE",
-                    path: "/posts",
-                    resolver: "complexNoMatch"
+                    route: '/simple',
+                    resolvers: [{
+                        path: '/',
+                        method: 'GET',
+                        resolver: 'simplePut'
+                    }]
                 },
                 {
-                    route: "/simple",
-                    path:'/',
-                    method: "GET",
-                    resolver: "simplePut"
-                },
-                {
-                    route: "/minimal",
-                    method: "GET",
-                    path: "/",
-                    resolver: "minimal"
+                    route: '/minimal',
+                    resolvers: [{
+                        method: 'GET',
+                        path: '/',
+                        resolver: 'minimal'
+                    }]
                 }
             ])
         })

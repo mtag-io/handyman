@@ -1,6 +1,6 @@
 // noinspection ES6PreferShortImport
 
-import {basename, dirname, extname, join, sep} from 'path'
+import {basename, dirname, extname, join, sep, resolve} from 'path'
 import {existsSync, readFileSync, statSync, symlinkSync, unlinkSync, writeFileSync} from 'fs'
 import {fileURLToPath} from 'url'
 import {
@@ -37,12 +37,12 @@ export const searchUp = pth => {
         const packPath = join(tmp, PACKAGES)
         if (existsSync(hmPath))
             return {
-                root: cleanPath(tmp)
+                root: cleanPath(tmp),
+                conf: readJson(hmPath)
             }
         if (existsSync(packPath) && statSync(packPath).isDirectory())
             return {
-                root: cleanPath(tmp),
-                isNew: true
+                root: cleanPath(tmp)
             }
         tmp = join(tmp, '../')
     }
@@ -77,9 +77,11 @@ export const readJson = (pth) => {
  * @name writeJson
  * @param {String} pth
  * @param {Object} data
+ * @param {object} opts
+ * @param {boolean?} opts.noExt
  */
-export const writeJson = (pth, data) => {
-    if (!pth.endsWith(JSON_EXT)) pth += JSON_EXT
+export const writeJson = (pth, data,  opts={}) => {
+    if (!opts.noExt && !pth.endsWith(JSON_EXT)) pth += JSON_EXT
     try {
         writeFileSync(pth, JSON.stringify(data, null, 2))
     } catch (err) {
@@ -203,3 +205,7 @@ export const writeHMConf = (root, conf) => {
     if (basename(root) !== HM_CONFIG) root = join(root, HM_CONFIG)
     return writeJson(root, conf)
 }
+
+export const resolveHome = pt => pt.indexOf('~') !== -1
+    ? resolve(pt.replace('~', cleanPath(process.env.HOME.concat(sep))))
+    : resolve(pt)

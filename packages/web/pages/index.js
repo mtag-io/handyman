@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Project} from 'common/modules/server'
+import {Project} from 'common/server'
 import propTypes from 'prop-types'
 import {useRecoilState} from 'recoil'
 import Backdrop from '@mui/material/Backdrop'

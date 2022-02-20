@@ -1,35 +1,63 @@
 // noinspection JSUnresolvedFunction
-
 import GitHub from 'github-api'
-import {DEFAULT_GITHUB_ORG} from 'common/config'
-
-const defaultOpts = {
-    orgName: DEFAULT_GITHUB_ORG
-}
+import {DEFAULT_GITHUB_ORG, GITHUB_LIBRARY_ID} from 'common/config'
 
 /**
  * @class Github
  */
-class Github{
+class Github {
 
     /**
-     * @param {Environment} environment
-     * @param {object} opts
-     * @param {string} opts.orgName
+     * @param {string?} opts.orgName
+     * @param {Warnings} opts.warnings
+     * @param {{environment: Environment}} opts
      */
-    constructor(environment, opts = defaultOpts){
+    constructor(opts) {
+        this.env = opts.environment
+        this.warnings = opts.warnings
+        this.orgName = opts.orgName || DEFAULT_GITHUB_ORG
         this._gh = new GitHub({
-            token: environment.ghToken
+            token: this.env.ghToken
         })
-        this._org = this._gh.getOrganization(opts.orgName)
+        this._org = this._gh['getOrganization'](this.orgName)
     }
 
+    async init() {
+        await this._libCollect()
+    }
 
-    async collectRepos(){
-        this._org['getRepos']((err, repos) => {
-                console.log(repos)
+    async _libCollect() {
+        return new Promise(resolve => {
+            this._org['getRepos']((err, repos) => {
+                if (err) {
+                    this.warnings.emit('github', {
+                        errType: 'GH_ERROR',
+                        code: 'GH_API_READ',
+                        message: `Server has errored while getting data from GitHub api.`
+                    })
+                    this._libRepo = []
+                }
+                this._libRepo = repos
+                    .filter(rep =>rep['topics'].includes(GITHUB_LIBRARY_ID))
+                resolve()
             })
-        }
+        })
+    }
+
+    get libRepos(){
+        return this._libRepo
+    }
+
+    /**
+     * @param {object}pkg
+     * @param {object<string, string>} pkg.dependencies
+     * @param {object<string, string>} pkg.devDependencies
+     */
+    spotOrgLibs(pkg) {
+        const deps = Object.entries({...pkg.dependencies, ...pkg.devDependencies})
+        return deps.filter(([depName, versionOrUrl]) =>
+            this._libRepo.includes(depName) && versionOrUrl.includes('git+https'))
+    }
 }
 
-export default GitHub
+export default Github

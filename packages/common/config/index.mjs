@@ -18,6 +18,10 @@ export const ERROR_CONTENT = {
         helper: 'Check if the server is running'
     }
 }
+
+// Github
+export const GITHUB_LIBRARY_ID = 'internal-lib'
+
 export const MODULES = [
     {
         name: 'Project',
@@ -60,7 +64,7 @@ export const GITHUB_TOKEN_KEY = 'github-token'
 
 // Endpoints
 export const SHUTDOWN = 'shutdown'
-export const WARNING = 'warning'
+export const WARNING = 'warnings'
 export const PROJECT = 'project'
 
 export const endpoints = {
@@ -74,8 +78,10 @@ export const endpoints = {
         }
     },
     [PROJECT]:{
-        get:{},
-        update:{}
+        resolvers: {
+            get: {},
+            update: {}
+        }
     }
 }
 

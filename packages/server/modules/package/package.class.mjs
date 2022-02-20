@@ -13,6 +13,8 @@ class Package{
     get root(){
         return this.path
     }
+
+    
 }
 
 export default Package

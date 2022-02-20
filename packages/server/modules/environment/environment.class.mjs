@@ -1,23 +1,27 @@
 import {resolve} from 'path'
 import encryptor from 'simple-encryptor'
 import {ENCRYPTION_KEY, GITHUB_TOKEN_KEY, HM_CACHE} from 'common/config'
-import {readJson, writeJson} from 'common/server'
-
+import {readJson, resolveHome, writeJson} from 'common/server'
+import {ENVIRONMENT} from 'common/constants'
 
 /**
  * @class Environment
  */
 class Environment {
     /**
-     * @param {*} opts
+     * @param {object} opts
+     * @param {Warnings} opts.warnings
+     * @param {string?} opts.hmCache
+     * @param {string} opts.root
      */
     constructor(opts = {}) {
 
-        this.warning = opts.warning
-        const hm = this._readHm()
-
-        this[ENCRYPTION_KEY] = opts[ENCRYPTION_KEY] || (hm && hm[ENCRYPTION_KEY])
-        this[GITHUB_TOKEN_KEY] = opts[GITHUB_TOKEN_KEY] || (hm && hm[GITHUB_TOKEN_KEY])
+        this.warning = opts.warnings
+        const hm = this._readHm(opts.hmCache || HM_CACHE)
+        if (opts[ENCRYPTION_KEY] || (hm && hm[ENCRYPTION_KEY]))
+            this[ENCRYPTION_KEY] = opts[ENCRYPTION_KEY] || (hm && hm[ENCRYPTION_KEY])
+        if (opts[GITHUB_TOKEN_KEY] || (hm && hm[GITHUB_TOKEN_KEY]))
+            this[GITHUB_TOKEN_KEY] = opts[GITHUB_TOKEN_KEY] || (hm && hm[GITHUB_TOKEN_KEY])
 
         if (this[ENCRYPTION_KEY])
             // noinspection JSValidateTypes
@@ -32,11 +36,11 @@ class Environment {
      * @return {object}
      * @private
      */
-    _readHm() {
+    _readHm(hmCache) {
         try {
-            return readJson(resolve(HM_CACHE))
+            return readJson(resolveHome(hmCache))
         } catch (err) {
-            this.warning.emit('environment', {
+            this.warning.emit(ENVIRONMENT, {
                 errType: 'FS_ERROR',
                 code: 'HM_CACHE_READ',
                 message: `Unexisting or damaged ${HM_CACHE} file.`

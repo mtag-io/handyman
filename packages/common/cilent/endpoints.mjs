@@ -1,3 +1,5 @@
+// noinspection ES6PreferShortImport
+
 import {endpoints} from 'common/config'
 import {DELETE, DOT, GET, POST, PUT, SEP} from '../constants/index.mjs'
 import {cleanSep, urlAdd} from '../global/strings.mjs'
