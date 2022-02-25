@@ -11,10 +11,6 @@ interface Package extends BasePackageData {
     isroot?: boolean
 }
 
-interface Project extends BasePackageData {
-    syncSubPkg: boolean,
-    packages: Package[]
-}
 
 interface ProjectOpts {
     root?: string,
@@ -25,11 +21,18 @@ interface ProjectOpts {
     warnings?: object
 }
 
-interface Endpoint {
-    route?: string
-    path?: string
-    method?: string
-    resolver?: string
+interface Resolver{
+    path: string,
+    method: string,
+    resolver: string
 }
 
-type Endpoints = { [key: string]: Endpoint; }
+interface Route {
+    route: string,
+    resolvers: Resolver[]
+}
+
+interface Warnings {
+    emit: Function
+}
+

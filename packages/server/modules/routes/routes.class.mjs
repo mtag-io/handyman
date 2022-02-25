@@ -9,22 +9,32 @@ class Routes {
      *
      * @param resolvers
      * @param {*} opts
-     * @param {Endpoints?} opts.endpoints
-     * @param {Express} opts.router
+     * @param {Route?} opts.endpoints
+     * @param {Express.Router} opts.router
      */
     constructor(resolvers, opts = {}) {
-        this._routerEngine = opts.router || express.Router()
         this._endpoints = opts.endpoints || endpoints
 
         this._routes = spreadEndpoint(this._endpoints).map(
-            enpointPayload =>
-                [
-                    enpointPayload.route,
-                    this._routerEngine[enpointPayload.method](
-                        enpointPayload.path,
-                        resolvers[enpointPayload.resolver]
+            /**
+             * @param {Route} ep
+             */
+            ep => {
+                const router = express.Router()
+                /**
+                 * @param {Resolver} resolver
+                 */
+                ep.resolvers.forEach(_res => {
+                    router[_res.method.toLowerCase()](
+                        _res.path,
+                        resolvers[_res.resolver]
                     )
+                })
+                return [
+                    ep.route,
+                    router
                 ]
+            }
         )
     }
 

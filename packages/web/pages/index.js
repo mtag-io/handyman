@@ -1,47 +1,47 @@
-import React, {useEffect} from 'react'
-import {Project} from 'common/modules/server'
-import propTypes from 'prop-types'
+import React, {useEffect, useState} from 'react'
 import {useRecoilState} from 'recoil'
-import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress'
-import {projectAtom} from '../src/atoms/project-atom'
+import {projectAtom} from '../atoms/project.atom'
 import {useRouter} from 'next/router'
+import http from '../utils/http'
+import {empty} from 'common/global'
+import Project from '../views/project/Project'
+import LoaderScreen from '../components/Util/LoaderScreen'
+import {errorRoute} from '../utils/helpers'
 
-const Home = (props) => {
+const Home = (project) => {
+    const [ready, setReady] = useState(false)
     const setProject = useRecoilState(projectAtom)[1]
-    const {newProject, ...project} = props
-    const router = useRouter()
+    const _router = useRouter()
 
     useEffect(() => {
-        setProject(project)
-        if (newProject)
-            router.push('/new-project').then()
-        else
-            router.push('/project-info').then()
+        if (project.error) {
+            _router.push(errorRoute(project.code)).then()
+        } else {
+            setProject(project)
+            setReady(true)
+        }
     }, [])
 
-    return <Backdrop
-        sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}} open>
-        <CircularProgress color="inherit"/>
-    </Backdrop>
-}
-
-Home.propTypes = {
-    project: propTypes.shape({
-        newProject: propTypes.bool,
-        name: propTypes.string.isRequired,
-        path: propTypes.string.isRequired,
-        description: propTypes.string.isRequired,
-        version: propTypes.string.isRequired,
-        syncRootPkg: propTypes.bool,
-        syncSubPkg: propTypes.bool
-    })
+    return ready ? <Project/> : <LoaderScreen/>
 }
 
 export default Home
 
-export const getStaticProps = () => {
-    const project = new Project({root: process.cwd()})
-    return {props: project.flush()}
+export const getStaticProps = async () => {
+    const _payload = await http.server('project.get')
+    if (_payload['error']) {
+        let code
+        if (_payload['code'] === 'ECONNREFUSED') code = 511
+        else if (empty(_payload)) code = 510
+        else code = 500
+        return {
+            props: {
+                error: true,
+                code
+            }
+        }
+    }
+
+    return {props: _payload}
 }
 

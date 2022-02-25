@@ -2,9 +2,9 @@
   "name": "common",
   "type": "module",
   "version": "1.0.1",
-  "description": "Source project management utility ",
+  "description": "Handyman common resources module",
   "exports": {
-    "./client": "./client/index.mjs",
+    "./web": "./web/index.mjs",
     "./theme": "./theme/index.mjs",
     "./constants": "./constants/index.mjs",
     "./config": "./config/index.mjs",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@mui/material": "^5.4.0",
     "fast-glob": "^3.2.11",
-    "kill-port": "^1.6.1"
+    "kill-port": "^1.6.1",
+    "node-fetch": "^3.2.0"
   }
 }

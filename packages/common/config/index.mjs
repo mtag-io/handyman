@@ -1,3 +1,5 @@
+import {PUT} from 'common/constants'
+
 export const HM_CONFIG = '.hm.json'
 export const HM_CACHE = '~/.hm'
 export const PACKAGES = 'packages'
@@ -12,16 +14,19 @@ export const CLIENT_PORT = 3000
 export const LOCAL_URL = `http://localhost:${SERVER_PORT}`
 
 export const SEMVER_REGEXP = /^\d+\.\d+\.\d+$/
-export const ERROR_CONTENT = {
-    'Failed to fetch': {
-        message: 'Failed to fetch error. HTTP request failed',
-        helper: 'Check if the server is running'
-    }
-}
+
+// Github
+export const GITHUB_LIBRARY_ID = 'internal-lib'
+
 export const MODULES = [
     {
         name: 'Project',
         path: '/'
+    },
+    {
+        name: 'Packages',
+        path: '/package/:id',
+        isComp: true
     },
     {
         name: 'Environment',
@@ -51,7 +56,7 @@ export const DEFAULT_SERVER_MATCHES = [
 ]
 
 export const DEFAULT_HM_CONFIG = {
-    'syncPackage': false
+    'syncVersion': false
 }
 
 //Keys
@@ -60,7 +65,7 @@ export const GITHUB_TOKEN_KEY = 'github-token'
 
 // Endpoints
 export const SHUTDOWN = 'shutdown'
-export const WARNING = 'warning'
+export const WARNING = 'warnings'
 export const PROJECT = 'project'
 
 export const endpoints = {
@@ -74,8 +79,12 @@ export const endpoints = {
         }
     },
     [PROJECT]:{
-        get:{},
-        update:{}
+        resolvers: {
+            get: {},
+            update: {
+                method: PUT
+            }
+        }
     }
 }
 
