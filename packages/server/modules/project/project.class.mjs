@@ -1,10 +1,8 @@
-import {checkRootPackage, initRootPackage, searchUp, writeHMConf} from 'common/server'
-import {filterInstanceByProp, flushProps} from 'common/global'
-import {Environment, Package} from '../index.mjs'
 import GitHub from 'github-api'
-import {extractPackages, warningEvents} from 'common/server'
+import {checkRootPackage, extractPackages, initRootPackage, searchUp, warningEvents, writeHMConf} from 'common/server'
+import {flushProps, omit} from 'common/global'
+import {Environment, Package} from '../index.mjs'
 import {DEFAULT_HM_CONFIG} from 'common/config'
-import {omit} from 'common/global'
 import {ENVIRONMENT} from 'common/constants'
 
 /**
@@ -20,7 +18,6 @@ class Project {
         const warnings = opts.warnings || warningEvents
         this._registerWarnings(warnings)
 
-        this._packages = {}
         const {root, conf} = searchUp()
         if (!checkRootPackage(root))
             initRootPackage(root)
@@ -60,26 +57,35 @@ class Project {
         return this._rootPackage.version
     }
 
+    set name(name) {
+        this._rootPackage.name = name
+    }
+
+    set description(description) {
+        this._rootPackage.description = description
+    }
+
+    set version(version) {
+        this._rootPackage.version = version
+    }
+
     _digest(hmConf) {
 
-        const packages = hmConf.packages
         const _tmp = {...DEFAULT_HM_CONFIG, ...omit(hmConf, 'packages')}
 
         Object.entries(_tmp).forEach(
             ([k, v]) => {
                 this[k] = v
             })
-
-        packages.forEach(
-            pkData => this._packages[pkData.name] = new Package(pkData)
+        this._packages = hmConf.packages.map(
+            pkData => new Package(pkData)
         )
-
-        this._rootPackage = filterInstanceByProp(this._packages, {isRoot: true})
+        this._rootPackage = this._packages.filter(pk => pk.isRoot)[0]
     }
 
 
     _flushPackages() {
-        return Object.values(this._packages).map(pkInst => flushProps(pkInst))
+        return this._packages.map(pkInst => flushProps(pkInst))
     }
 
     flush() {
@@ -94,10 +100,24 @@ class Project {
     }
 
     _registerWarnings(warning) {
-        if(!this.warningQueue) this.warningQueue = []
+        if (!this.warningQueue) this.warningQueue = []
         warning.on(ENVIRONMENT, err => {
             this.warningQueue.push(err)
         })
+    }
+
+    _updatePkgJson() {
+        this._packages.forEach(
+            pk => {
+                pk.updatePkgJson()
+            }
+        )
+    }
+
+    update(payload) {
+        this._digest(payload)
+        this.writeHmConfig()
+        this._updatePkgJson()
     }
 }
 

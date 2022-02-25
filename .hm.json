@@ -1,0 +1,36 @@
+{
+  "warningQueue": [],
+  "syncVersion": true,
+  "syncPackage": false,
+  "path": "/Users/vlad/Documents/zecode/@lib/handyman",
+  "isRoot": true,
+  "packages": [
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman",
+      "name": "handyman",
+      "version": "1.0.1",
+      "description": "Source project management utility ",
+      "isRoot": true
+    },
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman/packages/common",
+      "name": "common",
+      "version": "1.0.1",
+      "description": "Handyman common resources module"
+    },
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman/packages/server",
+      "name": "server",
+      "version": "1.0.0",
+      "description": "Handyman server module",
+      "isServer": true
+    },
+    {
+      "path": "/Users/vlad/Documents/zecode/@lib/handyman/packages/web",
+      "name": "web",
+      "version": "1.0.1",
+      "description": "Handyman client module",
+      "isClient": true
+    }
+  ]
+}

@@ -18,6 +18,7 @@
     "@mui/lab": "^5.0.0-alpha.67",
     "@mui/material": "latest",
     "@mui/styles": "^5.3.0",
+    "deep-copy": "^1.4.2",
     "formik": "^2.2.9",
     "next": "latest",
     "prop-types": "latest",
@@ -29,5 +30,5 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {},
-  "description": "Source project management utility "
+  "description": "Handyman client module"
 }

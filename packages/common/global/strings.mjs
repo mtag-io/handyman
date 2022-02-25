@@ -3,7 +3,7 @@
  * @param {string[]} subStrings
  * @return {boolean}
  */
-import {SEP} from '../constants/index.mjs'
+import {SEP} from 'common/constants'
 
 /**
  * @param {string} st

@@ -6,7 +6,8 @@ import {
     urlAdd,
     stripSepLeft,
     stripSepRight,
-    cleanSep
+    cleanSep,
+    toHttpVerb
 } from 'common/global'
 import {capitalize} from 'common/global'
 
@@ -142,5 +143,48 @@ describe('oop', () => {
             it('should pass with filter found', () => {
                 expect(filterInstanceByProp(testObj, {prop1: 'dummy'})).to.equal(testObj['key2'])
             })
+    })
+
+    describe('toHttpVerb', () => {
+
+        it('should GET', () => {
+            expect(toHttpVerb('noMatch')).to.equal('GET')
+        })
+
+        it('should also GET', () => {
+            expect(toHttpVerb()).to.equal('GET')
+        })
+
+        it('should still GET', () => {
+            expect(toHttpVerb('geT')).to.equal('GET')
+        })
+
+        it('should GET again', () => {
+            expect(toHttpVerb('read')).to.equal('GET')
+        })
+
+        it('should PUT', () => {
+            expect(toHttpVerb('update')).to.equal('PUT')
+        })
+
+        it('should also PUT', () => {
+            expect(toHttpVerb('Put')).to.equal('PUT')
+        })
+
+        it('should POST', () => {
+            expect(toHttpVerb('create')).to.equal('POST')
+        })
+
+        it('should also POST', () => {
+            expect(toHttpVerb('poSt')).to.equal('POST')
+        })
+
+        it('should DELETE', () => {
+            expect(toHttpVerb('DELETE')).to.equal('DELETE')
+        })
+
+        it('should also DELETE', () => {
+            expect(toHttpVerb('remove')).to.equal('DELETE')
+        })
     })
 })

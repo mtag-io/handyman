@@ -9,12 +9,9 @@ import {ENVIRONMENT} from 'common/constants'
  */
 class Environment {
     /**
-     * @param {object} opts
-     * @param {Warnings} opts.warnings
-     * @param {string?} opts.hmCache
-     * @param {string} opts.root
+     * @param {*} opts
      */
-    constructor(opts = {}) {
+    constructor(opts) {
 
         this.warning = opts.warnings
         const hm = this._readHm(opts.hmCache || HM_CACHE)

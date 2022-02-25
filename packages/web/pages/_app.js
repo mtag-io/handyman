@@ -4,18 +4,19 @@ import Head from 'next/head'
 import {ThemeProvider} from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import {CacheProvider} from '@emotion/react'
-import theme from '../src/theme'
-import createEmotionCache from '../src/utils/createEmotionCache'
+import theme from '../theme'
+import createEmotionCache from '../utils/createEmotionCache'
 import {RecoilRoot} from 'recoil'
-import Layout from '../src/views/layout/Layout'
+import Layout from '../views/layout/Layout'
 import '../styles/global.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
-export default function MyApp(props) {
+export default function Handyman(props) {
 
     const {Component, emotionCache = clientSideEmotionCache, pageProps} = props
+
     return (
         <CacheProvider value={emotionCache}>
             <Head>
@@ -34,7 +35,7 @@ export default function MyApp(props) {
     )
 }
 
-MyApp.propTypes = {
+Handyman.propTypes = {
     Component: PropTypes.elementType.isRequired,
     emotionCache: PropTypes.object,
     pageProps: PropTypes.object.isRequired

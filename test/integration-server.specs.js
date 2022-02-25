@@ -35,7 +35,7 @@
 //                 body: JSON.stringify(data)
 //             })
 //
-//         expect(res.status).to.eq(200)
+//         expect(res.sendStatus).to.eq(200)
 //         expect(existsSync(testHmPath)).to.be.true
 //         const _data = JSON.parse(readFileSync(testHmPath, 'utf-8'))
 //         expect(_data).to.deep.equal(data)
